@@ -1,26 +1,25 @@
 Projects Fork-CMS-module
 ========================
 
-# README
-
 <img src="http://fork-project.lexxweb.be/images/project.jpg" alt="screenshot frontend project." />
 
 ## Installation
 
-1. You need Fork CMS version 3.6.1
+1. You need Fork CMS version 3.7 or higher
 2. Download the .zip containing the frontend and backend folder.
 3. Go to www.yourwebsite.com/private/en/extensions/upload_module and select the .zip
 4. The install adds a new page to every active language. As a demo, a category called Default is added with a project called James Bond containing some text and images.
 
 ## Features
-Actually this module is a 'marriage' between the FAQ and Photogallery module. You can create different categories each containing different projects.
+Actually this module is a 'marriage' between the FAQ and Photogallery module. You can create different categories, clients each containing different projects.
 A projects exists of the following fields:
 - Title
 - Summary
 - Main content
 - Status (hidden/published)
 - Spotlight (widget)
-- Metadata (category and tags)
+- Related projects
+- Metadata (date, category, client and tags)
 - SEO tab
 
 <img src="http://fork-project.lexxweb.be/images/add_project.jpg" alt="screenshot add a project" />
