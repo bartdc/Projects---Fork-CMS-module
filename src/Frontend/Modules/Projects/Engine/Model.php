@@ -367,7 +367,7 @@ class Model implements FrontendTagsInterface
         // build the item url
         foreach ($items as &$item) {
             foreach ($imageFormats as $format_name => $format) {
-                $item['sizes'][$format_name] = FRONTEND_FILES_URL . '/Projects/' . $item['project_id'] . '/' . $format . '/' . $item['filename'];
+                $items['sizes'][$format_name] = FRONTEND_FILES_URL . '/Projects/' . $item['project_id'] . '/' . $format . '/' . $item['filename'];
             }
         }
 
