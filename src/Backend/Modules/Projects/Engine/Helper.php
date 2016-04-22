@@ -9,6 +9,9 @@ namespace Backend\Modules\Projects\Engine;
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
+
 /**
  * In this file we store all generic functions that we will be using in the projects module
  *
@@ -27,6 +30,8 @@ class Helper
 	 * @param string $filename The file's name.
 	 * @param array[optional] $formats The formats of the images to generate based on the source.
 	 * @return bool	Returns true if every file succeeded
+	 *
+	 * @throws \SpoonException
 	 */
 	public static function addImages($filefield, $path, $filename, array $formats = null)
 	{
@@ -34,7 +39,8 @@ class Helper
 		if(empty($filefield) || empty($filename)) return false;
 
 		// create the path up to the source dir
-		if(!\SpoonDirectory::exists($path . '/source')) \SpoonDirectory::create($path . '/source');
+		$fs = new Filesystem();
+		if(!$fs->exists($path . '/source')) $fs->mkdir($path . '/source');
 
 		// source path
 		$pathSource = $path . '/source';
@@ -70,7 +76,8 @@ class Helper
 		if(empty($filename)) return false;
 
 		// create the path up to the source dir
-		if(!\SpoonDirectory::exists($path . '/source')) \SpoonDirectory::create($path . '/source');
+		$fs = new Filesystem();
+		if(!$fs->exists($path . '/source')) $fs->mkdir($path . '/source');
 
 		// source path
 		$pathSource = $path . '/source';
@@ -82,7 +89,7 @@ class Helper
 			foreach($formats as $format)
 			{
 				// create the path for this project
-				if(!\SpoonDirectory::exists($path . '/' . $format['size'])) \SpoonDirectory::create($path . '/' . $format['size']);
+				if(!$fs->exists($path . '/' . $format['size'])) $fs->mkdir($path . '/' . $format['size']);
 
 				// exploded format
 				$explodedFormat = explode('x', $format['size']);
@@ -118,7 +125,7 @@ class Helper
 	 */
 	public static function getModules()
 	{
-		return BackendModel::getModuleSetting('slideshows', 'modules');
+		return BackendModel::get('fork.settings')->get('slideshows', 'modules');
 	}
 
 	/**
@@ -130,7 +137,7 @@ class Helper
 	public static function getSupportedMethodsByModule($module)
 	{
 		$helperFile = FRONTEND_MODULES_PATH . '/' . $module . '/engine/slideshows.php';
-		$helperFileContents = \SpoonFile::getContent($helperFile);
+		$helperFileContents = file_get_contents($helperFile);
 		$results = array();
 
 		preg_match_all('/public static function (.*)\((.*)\)/', $helperFileContents, $matches);
@@ -240,7 +247,8 @@ class Helper
 		$camelcasedModule = ucwords($module);
 		$helperFile = FRONTEND_MODULES_PATH . '/' . $module . '/engine/slideshows.php';
 
-		if(!\SpoonFile::exists($helperFile))
+		$fs = new Filesystem();
+		if(!$fs->exists($helperFile))
 		{
 			$content = '<?php
 						class Frontend' . $camelcasedModule . 'SlideshowsModel
@@ -258,7 +266,7 @@ class Helper
 						}
 						';
 
-			\SpoonFile::setContent($helperFile, $content);
+			$fs->dumpFile($helperFile, $content);
 		}
 	}
 }

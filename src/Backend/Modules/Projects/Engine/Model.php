@@ -141,7 +141,7 @@ class Model
                 array((int)$id, BL::getWorkingLanguage())) == 0);
 
         // exception
-        if (!BackendModel::getModuleSetting('projects', 'allow_multiple_categories', true) && self::getCategoryCount() == 1) {
+        if (!BackendModel::get('fork.settings')->get('projects', 'allow_multiple_categories', true) && self::getCategoryCount() == 1) {
             return false;
         } else return $result;
     }
@@ -183,7 +183,7 @@ class Model
                 array((int)$id, BL::getWorkingLanguage())) == 0);
 
         // exception
-        if (!BackendModel::getModuleSetting('projects', 'allow_multiple_clients', true) && self::getClientCount() == 1) {
+        if (!BackendModel::get('fork.settings')->get('projects', 'allow_multiple_clients', true) && self::getClientCount() == 1) {
             return false;
         } else return $result;
     }
@@ -209,9 +209,9 @@ class Model
             $fs->remove($basePath . '/source/' . $item['filename']);
             $fs->remove($basePath . '/64x64/' . $item['filename']);
             $fs->remove($basePath . '/128x128/' . $item['filename']);
-            $fs->remove($basePath . '/' . BackendModel::getModuleSetting('projects', 'width1') . 'x' . BackendModel::getModuleSetting('projects', 'height1') . '/' . $item['filename']);
-            $fs->remove($basePath . '/' . BackendModel::getModuleSetting('projects', 'width2') . 'x' . BackendModel::getModuleSetting('projects', 'height2') . '/' . $item['filename']);
-            $fs->remove($basePath . '/' . BackendModel::getModuleSetting('projects', 'width3') . 'x' . BackendModel::getModuleSetting('projects', 'height3') . '/' . $item['filename']);
+            $fs->remove($basePath . '/' . BackendModel::get('fork.settings')->get('projects', 'width1') . 'x' . BackendModel::get('fork.settings')->get('projects', 'height1') . '/' . $item['filename']);
+            $fs->remove($basePath . '/' . BackendModel::get('fork.settings')->get('projects', 'width2') . 'x' . BackendModel::get('fork.settings')->get('projects', 'height2') . '/' . $item['filename']);
+            $fs->remove($basePath . '/' . BackendModel::get('fork.settings')->get('projects', 'width3') . 'x' . BackendModel::get('fork.settings')->get('projects', 'height3') . '/' . $item['filename']);
         }
     }
 
@@ -910,7 +910,7 @@ class Model
                 'id' => $item['id'],
                 'extra_label' => $item['title'],
                 'language' => $item['language'],
-                'edit_url' => BackendModel::createURLForAction('edit_category', 'projects', $item['language']) . '&id=' . $item['id'])
+                'edit_url' => BackendModel::createURLForAction('EditCategory', 'Projects', $item['language']) . '&id=' . $item['id'])
         );
 
         $db->update(
@@ -1011,7 +1011,7 @@ class Model
                     'id' => $item['id'],
                     'extra_label' => $item['title'],
                     'language' => $item['language'],
-                    'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])
+                    'edit_url' => BackendModel::createURLForAction('Edit') . '&id=' . $item['id'])
             ),
             'hidden' => 'N');
 
