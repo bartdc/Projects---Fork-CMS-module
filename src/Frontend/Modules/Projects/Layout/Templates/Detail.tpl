@@ -41,9 +41,11 @@
                     {iteration:related}
                         <div class="relatedProject">
                             <small><a href="{$related.url}">{$related.title}</a></small>
-                            <a href="{$related.url}">
+                            {option:related.image}
+							<a href="{$related.url}">
                                 <img src="{$related.image}" alt="{$related.title}" title="{$related.title}" />
                             </a>
+							{/option:related.image}
                         </div>
                     {/iteration:related}
                 </div>

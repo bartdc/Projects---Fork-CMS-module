@@ -208,6 +208,10 @@
                 <translation language="en"><![CDATA[spotlight]]></translation>
                 <translation language="nl"><![CDATA[in de kijker]]></translation>
             </item>
+            <item type="label" name="RelatedProjects">
+                <translation language="en"><![CDATA[related projects]]></translation>
+                <translation language="nl"><![CDATA[gerelateerde projecten]]></translation>
+            </item>
             <item type="label" name="NoProjectsInCategory">
                 <translation language="nl"><![CDATA[Er zijn geen projecten in deze categorie.]]></translation>
                 <translation language="en"><![CDATA[There are no projects in this category.]]></translation>

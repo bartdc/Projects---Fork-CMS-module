@@ -31,7 +31,6 @@
                 </article>
             {/iteration:projects}
         </div>
-        {include:Core/Layout/Templates/Pagination.tpl}
     {/option:projects}
     </div>
 </div>

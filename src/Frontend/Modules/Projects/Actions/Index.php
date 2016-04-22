@@ -58,7 +58,7 @@ class Index extends FrontendBaseBlock
 
         // set URL and limit
         $this->pagination['url'] = FrontendNavigation::getURLForBlock('Projects');
-        $this->pagination['limit'] = FrontendModel::getModuleSetting('Projects', 'overview_num_items', 10);
+        $this->pagination['limit'] = FrontendModel::get('fork.settings')->get('Projects', 'overview_num_items', 10);
 
         // populate count fields in pagination
         $this->pagination['num_items'] = FrontendProjectsModel::getAllCount();
@@ -92,7 +92,7 @@ class Index extends FrontendBaseBlock
         $this->tpl->assign('categories', (array)$this->categories);
         $this->tpl->assign('clients', (array)$this->clients);
         $this->tpl->assign('projects', (array)$this->projects);
-        $this->tpl->assign('allowMultipleCategories', FrontendModel::getModuleSetting('Projects', 'allow_multiple_categories', true));
+        $this->tpl->assign('allowMultipleCategories', FrontendModel::get('fork.settings')->get('Projects', 'allow_multiple_categories', true));
 
         $this->parsePagination();
     }
