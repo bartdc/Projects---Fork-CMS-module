@@ -81,7 +81,7 @@ class Detail extends FrontendBaseBlock
 	$this->record = FrontendProjectsModel::get($this->URL->getParameter(1));
 
 	// get settings
-	$this->settings = FrontendModel::getModuleSettings('Projects');
+	$this->settings = FrontendModel::get('fork.settings')->getForModule('Projects');
 
 	// anything found?
 	if(empty($this->record)) $this->redirect(FrontendNavigation::getURL(404));

@@ -82,7 +82,7 @@ class Model implements FrontendTagsInterface
         $clientUrl = FrontendNavigation::getURLForBlock('Projects', 'Client');
 
         // prepare items
-        $numberOfImagesToShowInList = FrontendModel::getModuleSetting('Projects', 'overview_num_of_images', 1);
+        $numberOfImagesToShowInList = FrontendModel::get('fork.settings')->get('Projects', 'overview_num_of_images', 1);
         foreach ($items as &$item) {
             $images = self::getImages($item['id'], $numberOfImagesToShowInList);
             if (!empty($images)) {
@@ -147,7 +147,7 @@ class Model implements FrontendTagsInterface
         $clientUrl = FrontendNavigation::getURLForBlock('Projects', 'Client');
 
         // prepare items
-        $numberOfImagesToShowInList = FrontendModel::getModuleSetting('Projects', 'overview_num_of_images', 1);
+        $numberOfImagesToShowInList = FrontendModel::get('fork.settings')->get('Projects', 'overview_num_of_images', 1);
         foreach ($items as &$item) {
             $images = self::getImages($item['id'], $numberOfImagesToShowInList);
             if (!empty($images)) {
@@ -211,7 +211,7 @@ class Model implements FrontendTagsInterface
         $categoryUrl = FrontendNavigation::getURLForBlock('Projects', 'Category');
 
         // build the item urls and image
-        $numberOfImagesToShowInList = FrontendModel::getModuleSetting('Projects', 'overview_num_of_images', 1);
+        $numberOfImagesToShowInList = FrontendModel::get('fork.settings')->get('Projects', 'overview_num_of_images', 1);
         foreach ($items as &$item) {
             $images = self::getImages($item['id'], $numberOfImagesToShowInList);
             if (!empty($images)) {
@@ -264,7 +264,7 @@ class Model implements FrontendTagsInterface
         $link = FrontendNavigation::getURLForBlock('Projects', 'Detail');
 
         // build the item urls and image
-        $numberOfImagesToShowInList = FrontendModel::getModuleSetting('Projects', 'overview_num_of_images', 1);
+        $numberOfImagesToShowInList = FrontendModel::get('fork.settings')->get('Projects', 'overview_num_of_images', 1);
         foreach ($items as &$item) {
             $images = self::getImages($item['id'], $numberOfImagesToShowInList);
             if (!empty($images)) {
@@ -343,7 +343,7 @@ class Model implements FrontendTagsInterface
      */
     public static function getImages($id, $limit = null)
     {
-        $settings = FrontendModel::getModuleSettings('Projects');
+        $settings = FrontendModel::get('fork.settings')->getForModule('Projects');
 
         $items = (array)FrontendModel::getContainer()->get('database')->getRecords(
             'SELECT i.*
@@ -493,7 +493,7 @@ class Model implements FrontendTagsInterface
         $clientUrl = FrontendNavigation::getURLForBlock('Projects', 'Client');
 
         // prepare items
-        $numberOfImagesToShowInList = FrontendModel::getModuleSetting('Projects', 'overview_num_of_images', 1);
+        $numberOfImagesToShowInList = FrontendModel::get('fork.settings')->get('Projects', 'overview_num_of_images', 1);
         foreach ($items as &$item) {
             $images = self::getImages($item['id'], $numberOfImagesToShowInList);
             if (!empty($images)) {
