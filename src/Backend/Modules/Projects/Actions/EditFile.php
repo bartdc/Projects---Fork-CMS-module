@@ -41,7 +41,7 @@ class EditFile extends BackendBaseActionEdit
 		}
 		
 		// the item does not exist
-		else $this->redirect(BackendModel::createURLForAction('index') . '&error=non-existing');
+		else $this->redirect(BackendModel::createURLForAction('Index') . '&error=non-existing');
 	}
 
 	/**
@@ -122,7 +122,7 @@ class EditFile extends BackendBaseActionEdit
 				BackendModel::triggerEvent($this->getModule(), 'after_edit_file', array('item' => $item));
 								
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('media') . '&project_id=' . $this->project['id'] . '&report=edited&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('Media') . '&project_id=' . $this->project['id'] . '&report=edited&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}

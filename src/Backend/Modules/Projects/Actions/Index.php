@@ -72,12 +72,12 @@ class Index extends BackendBaseActionIndex
 			// check if this action is allowed
 			if(BackendAuthentication::isAllowedAction('Edit'))
 			{
-				$dataGrid->addColumn('media', null, BL::lbl('Media'), BackendModel::createURLForAction('media') . '&amp;id=[id]', BL::lbl('Media'));
+				$dataGrid->addColumn('media', null, BL::lbl('Media'), BackendModel::createURLForAction('Media') . '&amp;id=[id]', BL::lbl('Media'));
 				$dataGrid->setColumnFunction(array(__CLASS__, 'setMediaLink'), array('[id]'), 'media');
 				$dataGrid->setColumnFunction(array(__CLASS__, 'setClientLink'), array('[client_id]', '[client]'), 'client');
 				$dataGrid->setColumnAttributes('media', array('style' => 'width: 1%;'));
-				$dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit') . '&amp;id=[id]');
-				$dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit') . '&amp;id=[id]', BL::lbl('Edit'));
+				$dataGrid->setColumnURL('title', BackendModel::createURLForAction('Edit') . '&amp;id=[id]');
+				$dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('Edit') . '&amp;id=[id]', BL::lbl('Edit'));
 			}
 			
 			// add dataGrid to list
@@ -110,7 +110,7 @@ class Index extends BackendBaseActionIndex
 	 */
 	public static function setMediaLink($projectId)
 	{
-		return '<a class="button icon iconEdit linkButton" href="' . BackendModel::createURLForAction('media') . '&project_id=' . $projectId . '">
+		return '<a class="button icon iconEdit linkButton" href="' . BackendModel::createURLForAction('Media') . '&project_id=' . $projectId . '">
 					<span>' . BL::lbl('ManageMedia') . '</span>
 				</a>';
 	}
@@ -125,7 +125,7 @@ class Index extends BackendBaseActionIndex
 	public static function setClientLink($clientId, $client)
 	{
 		if ( $clientId > 1 ){
-			return '<a href="' . BackendModel::createURLForAction('edit_client') . '&amp;id=' . $clientId . '"><span>' . $client . '</span></a>';
+			return '<a href="' . BackendModel::createURLForAction('EditClient') . '&amp;id=' . $clientId . '"><span>' . $client . '</span></a>';
 		} else return '<span>' . BL::lbl('NoProjectReference') . '</span>';	
 	}
 }

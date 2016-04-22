@@ -42,10 +42,10 @@ class DeleteClient extends BackendBaseActionDelete
 				BackendModel::triggerEvent($this->getModule(), 'after_delete_client', array('item' => $this->record));
 
 				// category was deleted, so redirect
-				$this->redirect(BackendModel::createURLForAction('clients') . '&report=deleted-client&var=' . urlencode($this->record['title']));
+				$this->redirect(BackendModel::createURLForAction('Clients') . '&report=deleted-client&var=' . urlencode($this->record['title']));
 			}
-			else $this->redirect(BackendModel::createURLForAction('clients') . '&error=delete-client-not-allowed&var=' . urlencode($this->record['title']));
+			else $this->redirect(BackendModel::createURLForAction('Clients') . '&error=delete-client-not-allowed&var=' . urlencode($this->record['title']));
 		}
-		else $this->redirect(BackendModel::createURLForAction('clients') . '&error=non-existing');
+		else $this->redirect(BackendModel::createURLForAction('Clients') . '&error=non-existing');
 	}
 }

@@ -49,8 +49,8 @@ class Clients extends BackendBaseActionIndex
 		$this->dataGrid->setRowAttributes(array('id' => '[id]'));
 		$this->dataGrid->setPaging(false);
 		
-		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_client') . '&amp;id=[id]');
-		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_client') . '&amp;id=[id]', BL::lbl('Edit'));
+		$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('EditClient') . '&amp;id=[id]');
+		$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('EditClient') . '&amp;id=[id]', BL::lbl('Edit'));
 	}
 
 	/**

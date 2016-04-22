@@ -30,7 +30,7 @@ class MassAction extends BackendBaseAction
 		// action to execute
 		$action = \SpoonFilter::getGetValue('action', array('deleteImages', 'deleteFiles', 'deleteVideos'), 'delete');
 		
-		if(!isset($_GET['id'])) $this->redirect(BackendModel::createURLForAction('index') . '&error=no-selection');
+		if(!isset($_GET['id'])) $this->redirect(BackendModel::createURLForAction('Index') . '&error=no-selection');
 		
 		// at least one id
 		else
@@ -49,6 +49,6 @@ class MassAction extends BackendBaseAction
 			}
 		}
 
-		$this->redirect(BackendModel::createURLForAction('media') . '&project_id=' . $slideshowID . '&report=deleted');
+		$this->redirect(BackendModel::createURLForAction('Media') . '&project_id=' . $slideshowID . '&report=deleted');
 	}
 }

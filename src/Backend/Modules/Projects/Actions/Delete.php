@@ -38,8 +38,8 @@ class Delete extends BackendBaseActionDelete
 			BackendProjectsModel::delete($this->id);
 			BackendModel::triggerEvent($this->getModule(), 'after_delete', array('item' => $this->record));
 
-			$this->redirect(BackendModel::createURLForAction('index') . '&report=deleted&var=' . urlencode($this->record['title']));
+			$this->redirect(BackendModel::createURLForAction('Index') . '&report=deleted&var=' . urlencode($this->record['title']));
 		}
-		else $this->redirect(BackendModel::createURLForAction('index') . '&error=non-existing');
+		else $this->redirect(BackendModel::createURLForAction('Index') . '&error=non-existing');
 	}
 }
