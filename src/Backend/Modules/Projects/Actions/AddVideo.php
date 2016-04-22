@@ -49,7 +49,7 @@ class AddVideo extends BackendBaseActionAdd
 		}
         
 		// the project does not exist
-		else $this->redirect(BackendModel::createURLForAction('index') . '&error=non-existing');
+		else $this->redirect(BackendModel::createURLForAction('Index') . '&error=non-existing');
 	}
 
 	/**
@@ -110,7 +110,7 @@ class AddVideo extends BackendBaseActionAdd
 				BackendModel::triggerEvent($this->getModule(), 'after_add_video', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('media') . '&project_id=' . $item['project_id'] . '&report=added&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('Media') . '&project_id=' . $item['project_id'] . '&report=added&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}

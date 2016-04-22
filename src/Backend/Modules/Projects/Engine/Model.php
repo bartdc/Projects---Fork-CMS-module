@@ -9,6 +9,7 @@ namespace Backend\Modules\Projects\Engine;
  * file that was distributed with this source code.
  */
 
+use Symfony\Component\Filesystem\Filesystem;
 use Backend\Core\Engine\Exception;
 use Backend\Core\Engine\Authentication as BackendAuthentication;
 use Backend\Core\Engine\Model as BackendModel;
@@ -71,8 +72,11 @@ class Model
     public static function delete($id)
     {
         $id = (int)$id;
-        $projectFilesPath = FRONTEND_FILES_PATH . '/projects/' . $id;
-        \SpoonDirectory::delete($projectFilesPath);
+        $projectFilesPath = FRONTEND_FILES_PATH . '/Projects/' . $id;
+
+        $fs = new Filesystem();
+        $fs->remove($projectFilesPath);
+
         $project = self::get($id);
         if (!empty($project)) {
             $database = BackendModel::getContainer()->get('database');
@@ -82,7 +86,7 @@ class Model
             $database->delete('projects_videos', 'project_id = ?', array($id));
             $database->delete('projects_files', 'project_id = ?', array($id));
             $database->delete('projects', 'id = ?', array($id));
-            BackendTagsModel::saveTags($id, '', 'projects');
+            BackendTagsModel::saveTags($id, '', 'Projects');
         }
     }
 
@@ -137,7 +141,7 @@ class Model
                 array((int)$id, BL::getWorkingLanguage())) == 0);
 
         // exception
-        if (!BackendModel::getModuleSetting('projects', 'allow_multiple_categories', true) && self::getCategoryCount() == 1) {
+        if (!BackendModel::get('fork.settings')->get('projects', 'allow_multiple_categories', true) && self::getCategoryCount() == 1) {
             return false;
         } else return $result;
     }
@@ -179,7 +183,7 @@ class Model
                 array((int)$id, BL::getWorkingLanguage())) == 0);
 
         // exception
-        if (!BackendModel::getModuleSetting('projects', 'allow_multiple_clients', true) && self::getClientCount() == 1) {
+        if (!BackendModel::get('fork.settings')->get('projects', 'allow_multiple_clients', true) && self::getClientCount() == 1) {
             return false;
         } else return $result;
     }
@@ -199,13 +203,15 @@ class Model
             BackendModel::getContainer()->get('database')->delete('projects_images', 'id = ?', array($id));
 
             // delete image from disk
+
+            $fs = new Filesystem();
             $basePath = FRONTEND_FILES_PATH . '/projects/' . $item['project_id'];
-            \SpoonFile::delete($basePath . '/source/' . $item['filename']);
-            \SpoonFile::delete($basePath . '/64x64/' . $item['filename']);
-            \SpoonFile::delete($basePath . '/128x128/' . $item['filename']);
-            \SpoonFile::delete($basePath . '/' . BackendModel::getModuleSetting('projects', 'width1') . 'x' . BackendModel::getModuleSetting('projects', 'height1') . '/' . $item['filename']);
-            \SpoonFile::delete($basePath . '/' . BackendModel::getModuleSetting('projects', 'width2') . 'x' . BackendModel::getModuleSetting('projects', 'height2') . '/' . $item['filename']);
-            \SpoonFile::delete($basePath . '/' . BackendModel::getModuleSetting('projects', 'width3') . 'x' . BackendModel::getModuleSetting('projects', 'height3') . '/' . $item['filename']);
+            $fs->remove($basePath . '/source/' . $item['filename']);
+            $fs->remove($basePath . '/64x64/' . $item['filename']);
+            $fs->remove($basePath . '/128x128/' . $item['filename']);
+            $fs->remove($basePath . '/' . BackendModel::get('fork.settings')->get('projects', 'width1') . 'x' . BackendModel::get('fork.settings')->get('projects', 'height1') . '/' . $item['filename']);
+            $fs->remove($basePath . '/' . BackendModel::get('fork.settings')->get('projects', 'width2') . 'x' . BackendModel::get('fork.settings')->get('projects', 'height2') . '/' . $item['filename']);
+            $fs->remove($basePath . '/' . BackendModel::get('fork.settings')->get('projects', 'width3') . 'x' . BackendModel::get('fork.settings')->get('projects', 'height3') . '/' . $item['filename']);
         }
     }
 
@@ -224,8 +230,9 @@ class Model
             BackendModel::getContainer()->get('database')->delete('projects_files', 'id = ?', array($id));
 
             // delete file from disk
+            $fs = new Filesystem();
             $basePath = FRONTEND_FILES_PATH . '/projects/' . $item['project_id'];
-            \SpoonFile::delete($basePath . '/source/' . $item['filename']);
+            $fs->remove($basePath . '/source/' . $item['filename']);
         }
     }
 
@@ -903,7 +910,7 @@ class Model
                 'id' => $item['id'],
                 'extra_label' => $item['title'],
                 'language' => $item['language'],
-                'edit_url' => BackendModel::createURLForAction('edit_category', 'projects', $item['language']) . '&id=' . $item['id'])
+                'edit_url' => BackendModel::createURLForAction('EditCategory', 'Projects', $item['language']) . '&id=' . $item['id'])
         );
 
         $db->update(
@@ -1004,7 +1011,7 @@ class Model
                     'id' => $item['id'],
                     'extra_label' => $item['title'],
                     'language' => $item['language'],
-                    'edit_url' => BackendModel::createURLForAction('edit') . '&id=' . $item['id'])
+                    'edit_url' => BackendModel::createURLForAction('Edit') . '&id=' . $item['id'])
             ),
             'hidden' => 'N');
 

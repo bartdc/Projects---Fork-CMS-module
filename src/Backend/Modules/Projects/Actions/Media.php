@@ -94,7 +94,7 @@ class Media extends BackendBaseActionIndex
 		$this->dgImages->setRowAttributes(array('data-id' => '[id]'));	
 		$this->dgImages->setSortingColumns(array('title', 'sequence'), 'sequence');
 		$this->dgImages->setSortParameter('asc');
-		$this->dgImages->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_image') . '&amp;id=[id]&amp;project_id=[project_id]', BL::lbl('Edit'));
+		$this->dgImages->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('EditImage') . '&amp;id=[id]&amp;project_id=[project_id]', BL::lbl('Edit'));
 	      
 		$this->dgImages->setColumnFunction(array(new BackendDataGridFunctions(), 'showImage'), array($imageLink, '[filename]'), 'filename' );
 		$this->dgImages->setColumnAttributes('filename', array('class' => 'thumbnail'));
@@ -130,7 +130,7 @@ class Media extends BackendBaseActionIndex
 		$this->dgFiles->setSortingColumns(array('title', 'sequence'), 'sequence');
 		$this->dgFiles->setSortParameter('asc');
 	
-		$this->dgFiles->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_file') . '&amp;id=[id]&amp;project_id=[project_id]', BL::lbl('Edit'));      
+		$this->dgFiles->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('EditFile') . '&amp;id=[id]&amp;project_id=[project_id]', BL::lbl('Edit'));
 		$this->dgFiles->addColumn('checkbox', '<span class="checkboxHolder block"><input type="checkbox" name="toggleChecks" value="toggleChecks" />', '<input type="checkbox" name="id[]" value="[id]" class="inputCheckbox" /></span>');
 		$this->dgFiles->setColumnsSequence('checkbox');
 	      
@@ -162,7 +162,7 @@ class Media extends BackendBaseActionIndex
 		$this->dgVideos->setSortingColumns(array('title', 'sequence'), 'sequence');
 		$this->dgVideos->setSortParameter('asc');
 	  
-		$this->dgVideos->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_video') . '&amp;id=[id]&amp;project_id=[project_id]', BL::lbl('Edit'));
+		$this->dgVideos->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('editVideo') . '&amp;id=[id]&amp;project_id=[project_id]', BL::lbl('Edit'));
 		$this->dgVideos->addColumn('checkbox', '<span class="checkboxHolder block"><input type="checkbox" name="toggleChecks" value="toggleChecks" />', '<input type="checkbox" name="id[]" value="[id]" class="inputCheckbox" /></span>');
 		$this->dgVideos->setColumnsSequence('checkbox');
 		

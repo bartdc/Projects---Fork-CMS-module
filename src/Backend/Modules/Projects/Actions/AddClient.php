@@ -34,7 +34,8 @@ class AddClient extends BackendBaseActionAdd
 	public function execute()
 	{
 		// only one client allowed, so we redirect
-		if(!BackendModel::getModuleSetting('projects', 'allow_multiple_clients', true)) $this->redirect(BackendModel::createURLForAction('clients') . '&error=only-one-client-allowed');
+		if(!$this->get('fork.settings')->get($this->URL->getModule(), 'allow_multiple_clients', true))
+			$this->redirect(BackendModel::createURLForAction('Clients') . '&error=only-one-client-allowed');
 
 		parent::execute();
 		$this->loadForm();
@@ -90,8 +91,9 @@ class AddClient extends BackendBaseActionAdd
 				$imagePath = FRONTEND_FILES_PATH . '/' . $this->getModule() . '/references';
 				
 				// create folders if needed
-				if(!\SpoonDirectory::exists($imagePath . '/300x200/')) \SpoonDirectory::create($imagePath . '/300x200/');
-				if(!\SpoonDirectory::exists($imagePath . '/source/')) \SpoonDirectory::create($imagePath . '/source/');
+				$fs = new Filesystem();
+				if(!$fs->exists($imagePath . '/300x200/')) $fs->mkdir($imagePath . '/300x200/');
+				if(!$fs->exists($imagePath . '/source/')) $fs->mkdir($imagePath . '/source/');
 
 				// is there an image provided?
 				if($fields['image']->isFilled())
@@ -108,7 +110,7 @@ class AddClient extends BackendBaseActionAdd
 				BackendModel::triggerEvent($this->getModule(), 'after_add_client', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('clients') . '&report=added-client&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('Clients') . '&report=added-client&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}

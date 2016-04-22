@@ -41,7 +41,7 @@ class EditImage extends BackendBaseActionEdit
 			$this->display();
 		}
 		// the item does not exist
-		else $this->redirect(BackendModel::createURLForAction('index') . '&error=non-existing');
+		else $this->redirect(BackendModel::createURLForAction('Index') . '&error=non-existing');
 	}
 
 	/**
@@ -107,9 +107,9 @@ class EditImage extends BackendBaseActionEdit
 				$formats = array();
 				$formats[] = array('size' => '64x64', 'force_aspect_ratio' => false);
 				$formats[] = array('size' => '128x128', 'force_aspect_ratio' => false);
-                $formats[] = array('size' => BackendModel::getModuleSetting($this->URL->getModule(), 'width1') . 'x' . BackendModel::getModuleSetting($this->URL->getModule(), 'height1'), 'allow_enlargement' => BackendModel::getModuleSetting($this->URL->getModule(), 'allow_enlargment1'), 'force_aspect_ratio' => BackendModel::getModuleSetting($this->URL->getModule(), 'force_aspect_ratio1'));
-                $formats[] = array('size' => BackendModel::getModuleSetting($this->URL->getModule(), 'width2') . 'x' . BackendModel::getModuleSetting($this->URL->getModule(), 'height2'), 'allow_enlargement' => BackendModel::getModuleSetting($this->URL->getModule(), 'allow_enlargment2'), 'force_aspect_ratio' => BackendModel::getModuleSetting($this->URL->getModule(), 'force_aspect_ratio2'));
-                $formats[] = array('size' => BackendModel::getModuleSetting($this->URL->getModule(), 'width3') . 'x' . BackendModel::getModuleSetting($this->URL->getModule(), 'height3'), 'allow_enlargement' => BackendModel::getModuleSetting($this->URL->getModule(), 'allow_enlargment3'), 'force_aspect_ratio' => BackendModel::getModuleSetting($this->URL->getModule(), 'force_aspect_ratio3'));
+                $formats[] = array('size' => $this->get('fork.settings')->get($this->URL->getModule(), 'width1') . 'x' . $this->get('fork.settings')->get($this->URL->getModule(), 'height1'), 'allow_enlargement' => $this->get('fork.settings')->get($this->URL->getModule(), 'allow_enlargment1'), 'force_aspect_ratio' => $this->get('fork.settings')->get($this->URL->getModule(), 'force_aspect_ratio1'));
+                $formats[] = array('size' => $this->get('fork.settings')->get($this->URL->getModule(), 'width2') . 'x' . $this->get('fork.settings')->get($this->URL->getModule(), 'height2'), 'allow_enlargement' => $this->get('fork.settings')->get($this->URL->getModule(), 'allow_enlargment2'), 'force_aspect_ratio' => $this->get('fork.settings')->get($this->URL->getModule(), 'force_aspect_ratio2'));
+                $formats[] = array('size' => $this->get('fork.settings')->get($this->URL->getModule(), 'width3') . 'x' . $this->get('fork.settings')->get($this->URL->getModule(), 'height3'), 'allow_enlargement' => $this->get('fork.settings')->get($this->URL->getModule(), 'allow_enlargment3'), 'force_aspect_ratio' => $this->get('fork.settings')->get($this->URL->getModule(), 'force_aspect_ratio3'));
                 //$formats[] = array('size' => BackendModel::getModuleSetting($this->URL->getModule(), 'width4') . 'x' . BackendModel::getModuleSetting($this->URL->getModule(), 'height4'), 'allow_enlargement' => BackendModel::getModuleSetting($this->URL->getModule(), 'allow_enlargment4'), 'force_aspect_ratio' => BackendModel::getModuleSetting($this->URL->getModule(), 'force_aspect_ratio4'));
 
 				if($image->isFilled())
@@ -131,7 +131,7 @@ class EditImage extends BackendBaseActionEdit
 				BackendModel::triggerEvent($this->getModule(), 'after_edit_image', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('media') . '&project_id=' . $this->project['id'] . '&report=edited&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('Media') . '&project_id=' . $this->project['id'] . '&report=edited&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}

@@ -51,7 +51,7 @@ class Categories extends BackendBaseActionIndex
 	private function loadDataGrid()
 	{
 		// are multiple categories allowed?
-		$this->multipleCategoriesAllowed = BackendModel::getModuleSetting('projects', 'allow_multiple_categories', true);
+		$this->multipleCategoriesAllowed = $this->get('fork.settings')->get($this->getModule(), 'allow_multiple_categories', true);
 
 		// create dataGrid
 		$this->dataGrid = new BackendDataGridDB(BackendProjectsModel::QRY_DATAGRID_BROWSE_CATEGORIES, BL::getWorkingLanguage());
@@ -64,14 +64,14 @@ class Categories extends BackendBaseActionIndex
 		// check if this action is allowed
 		if(BackendAuthentication::isAllowedAction('Index'))
 		{
-			$this->dataGrid->setColumnFunction(array(__CLASS__, 'setClickableCount'), array('[num_items]', BackendModel::createURLForAction('index') . '&amp;category=[id]'), 'num_items', true);
+			$this->dataGrid->setColumnFunction(array(__CLASS__, 'setClickableCount'), array('[num_items]', BackendModel::createURLForAction('Index') . '&amp;category=[id]'), 'num_items', true);
 		}
 
 		// check if this action is allowed
 		if(BackendAuthentication::isAllowedAction('EditCategory'))
 		{
-			$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('edit_category') . '&amp;id=[id]');
-			$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('edit_category') . '&amp;id=[id]', BL::lbl('Edit'));
+			$this->dataGrid->setColumnURL('title', BackendModel::createURLForAction('EditCategory') . '&amp;id=[id]');
+			$this->dataGrid->addColumn('edit', null, BL::lbl('Edit'), BackendModel::createURLForAction('EditCategory') . '&amp;id=[id]', BL::lbl('Edit'));
 		}
 	}
 

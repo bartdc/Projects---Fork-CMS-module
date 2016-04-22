@@ -53,7 +53,7 @@ class AddFile extends BackendBaseActionAdd
 		}
         
 		// the project does not exist
-		else $this->redirect(BackendModel::createURLForAction('index') . '&error=non-existing');
+		else $this->redirect(BackendModel::createURLForAction('Index') . '&error=non-existing');
 	}
 
 	/**
@@ -119,7 +119,8 @@ class AddFile extends BackendBaseActionAdd
 				$filePath = FRONTEND_FILES_PATH . '/' . $this->getModule() . '/' . $item['project_id'] . '/source';
                 
 				// create folders if needed
-				if(!\SpoonDirectory::exists($filePath)) \SpoonDirectory::create($filePath);
+				$fs = new Filesystem();
+				if(!$fs->exists($filePath)) $fs->mkdir($filePath);
 
 				// file provided?
 				if($file->isFilled())
@@ -140,7 +141,7 @@ class AddFile extends BackendBaseActionAdd
 				BackendModel::triggerEvent($this->getModule(), 'after_add_file', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('media') . '&project_id=' . $item['project_id'] . '&report=added&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('Media') . '&project_id=' . $item['project_id'] . '&report=added&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}

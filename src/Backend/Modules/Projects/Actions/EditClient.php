@@ -47,7 +47,7 @@ class EditClient extends BackendBaseActionEdit
 			$this->parse();
 			$this->display();
 		}
-		else $this->redirect(BackendModel::createURLForAction('clients') . '&error=non-existing');
+		else $this->redirect(BackendModel::createURLForAction('Clients') . '&error=non-existing');
 	}
 
 	/**
@@ -118,8 +118,9 @@ class EditClient extends BackendBaseActionEdit
 				$imagePath = FRONTEND_FILES_PATH . '/' . $this->getModule() . '/references';
 				
 				// create folders if needed
-				if(!\SpoonDirectory::exists($imagePath . '/150x150/')) \SpoonDirectory::create($imagePath . '/150x150/');
-				if(!\SpoonDirectory::exists($imagePath . '/source/')) \SpoonDirectory::create($imagePath . '/source/');
+				$fs = new Filesystem();
+				if(!$fs->exists($imagePath . '/150x150/')) $fs->mkdir($imagePath . '/150x150/');
+				if(!$fs->exists($imagePath . '/source/')) $fs->mkdir($imagePath . '/source/');
 
 				// image provided?
 				if($fields['image']->isFilled())
@@ -136,7 +137,7 @@ class EditClient extends BackendBaseActionEdit
 				BackendModel::triggerEvent($this->getModule(), 'after_edit_client', array('item' => $item));
 
 				// everything is saved, so redirect to the overview
-				$this->redirect(BackendModel::createURLForAction('clients') . '&report=edited-client&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
+				$this->redirect(BackendModel::createURLForAction('Clients') . '&report=edited-client&var=' . urlencode($item['title']) . '&highlight=row-' . $item['id']);
 			}
 		}
 	}
